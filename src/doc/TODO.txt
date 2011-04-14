@@ -1,0 +1,2 @@
+- Resolve the services dependencies in the Container
+- Remove hardcoded path
