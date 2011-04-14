@@ -27,8 +27,7 @@ class Kernel(object):
             return ObjectFactory.instantiate_and_call(route['controller'], [self.__container], route['action'], request)
         else:
             # Not found
-            self.send_response(404)
-            self.end_headers()
+            return apache.HTTP_NOT_FOUND
 
     def _create_container(self):
         container = Container()

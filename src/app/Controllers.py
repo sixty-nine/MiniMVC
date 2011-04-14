@@ -6,7 +6,7 @@ from mod_python import apache
 from mvc import Controller
 from mvc import CheetahTemplates
 
-class HelloController(Controller):
+class DemoController(Controller):
 
     def __init__(self, container):
         Controller.__init__(self, container)
@@ -15,7 +15,13 @@ class HelloController(Controller):
             request.content_type = "text/plain"
             request.write('Hello world !')
             return apache.OK
-
+    
+    def templateAction(self, request):
+        view = self.container.get('view')
+        request.content_type = "text/html"
+        request.write(view.render('/home/dev/pymvc/src/templates/hello', {}))  
+        return apache.OK
+        
 class ContentController(Controller):
 
     CONTENT_BASE_PATH ='/home/dev/pymvc/src/public/'
