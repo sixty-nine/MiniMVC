@@ -1,2 +1,3 @@
 - Resolve the services dependencies in the Container
 - Remove hardcoded path
+- Lazy instanciation of the services (on get not on load)
