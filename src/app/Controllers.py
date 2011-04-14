@@ -1,12 +1,10 @@
 import os, sys, string
 import time
 import mimetypes
+from mod_python import apache
 
 from mvc import Controller
-from mvc import Kernel
-from mvc import Daemon
 from mvc import CheetahTemplates
-from mod_python import apache
 
 class HelloController(Controller):
 
@@ -15,7 +13,6 @@ class HelloController(Controller):
 
     def helloAction(self, request):
             request.content_type = "text/plain"
-            request.write(str(request.parameters))
             request.write('Hello world !')
             return apache.OK
 

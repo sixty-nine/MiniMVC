@@ -32,7 +32,7 @@ class Kernel(object):
 
     def _create_container(self):
         container = Container()
-        container.set('http_server', self)
+        container.set('kernel', self)
         container.set('container', container)
         #TODO: extract the config loader so that multiple formats (xml, yaml) can be used
         container.load(self.__basepath + '/config/config.yml')
