@@ -1,5 +1,4 @@
 import os, sys, string
-import time
 import mimetypes
 from mod_python import apache
 
