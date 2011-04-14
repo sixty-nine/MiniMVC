@@ -7,9 +7,9 @@ from mod_python import apache
 
 class Kernel(object):
 
-    def __init__(self, basepath):
+    def __init__(self):
         
-        self.__basepath = basepath
+        self.__basepath = os.path.dirname( os.path.realpath(os.path.realpath( __file__ ) + '/../' ) )
         self.__container = self._create_container()
         self.__router = Router()
         
@@ -33,6 +33,7 @@ class Kernel(object):
         container = Container()
         container.set('kernel', self)
         container.set('container', container)
+        container.set('basepath', self.__basepath)
         #TODO: extract the config loader so that multiple formats (xml, yaml) can be used
         container.load(self.__basepath + '/app/config/config.yml')
         return container

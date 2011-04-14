@@ -12,26 +12,24 @@ class DemoController(Controller):
         Controller.__init__(self, container)
 
     def helloAction(self, request):
-            request.content_type = "text/plain"
-            request.write('Hello world !')
-            return apache.OK
+        request.content_type = "text/plain"
+        request.write('Hello world !')
+        return apache.OK
     
     def makoAction(self, request):
         view = self.container.get('view')
         request.content_type = "text/html"
-        request.write(view.render('/home/dev/pymvc/src/app/templates/hello', { 'subtitle': 'Hello world'}))  
+        request.write(view.render(self.container.get('basepath') + '/app/templates/hello', { 'subtitle': 'Hello world'}))  
         return apache.OK
 
     def cheetahAction(self, request):
         # Templating engine should not be directly accessed, you should rather get it from the container (see makoAction)
         view = CheetahTemplates
         request.content_type = "text/html"
-        request.write(view.render('/home/dev/pymvc/src/app/templates/hello', { 'subtitle': 'Hello world'}))
+        request.write(view.render(self.container.get('basepath') + '/app/templates/hello', { 'subtitle': 'Hello world'}))
         return apache.OK
 
 class ContentController(Controller):
-
-    CONTENT_BASE_PATH = '/home/dev/pymvc/src/app/public/'
 
     def __init__(self, container):
         Controller.__init__(self, container)
@@ -39,7 +37,7 @@ class ContentController(Controller):
     def showAction(self, request):
 
         path = request.parameters['path_info']
-        filename = ContentController.CONTENT_BASE_PATH + '/' + path
+        filename = self.container.get('basepath') + '/app/public/' + path
         if os.access(filename, os.R_OK) and not os.path.isdir(filename):
             #TODO: is there any possibility to access files outside the root with ..?
             file = open(filename, "r")
