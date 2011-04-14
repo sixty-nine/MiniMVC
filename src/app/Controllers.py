@@ -24,7 +24,7 @@ class DemoController(Controller):
         
 class ContentController(Controller):
 
-    CONTENT_BASE_PATH ='/home/dev/pymvc/src/public/'
+    CONTENT_BASE_PATH = '/home/dev/pymvc/src/public/'
 
     def __init__(self, container):
         Controller.__init__(self, container)

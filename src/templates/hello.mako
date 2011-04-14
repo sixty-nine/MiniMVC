@@ -6,6 +6,6 @@
 </head>
 <body>
     <h1>PyMVC Demo</h1>
-    <img src="/index.py/content/img/python-logo.jpg" />
+    <img src="/content/img/python-logo.jpg" />
     <div>Hello World !</div>
 </body>
