@@ -4,4 +4,4 @@ class CheetahTemplates:
     
     @staticmethod
     def render(template, params):
-        return Template ( file =template + '.cheetah', searchList = [params] )
+        return str(Template ( file =template + '.cheetah', searchList = [params] ))

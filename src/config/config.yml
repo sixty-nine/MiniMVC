@@ -4,10 +4,15 @@ routes:
         controller: app.Controllers.DemoController
         action: helloAction
 
-    hello:
-        pattern: "/hello"
+    mako:
+        pattern: "/mako"
         controller: app.Controllers.DemoController
-        action: templateAction
+        action: makoAction
+
+    cheetah:
+        pattern: "/cheetah"
+        controller: app.Controllers.DemoController
+        action: cheetahAction
 
     content:
         pattern: "/content/{path_info:.*}"

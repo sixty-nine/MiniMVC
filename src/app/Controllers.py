@@ -16,12 +16,19 @@ class DemoController(Controller):
             request.write('Hello world !')
             return apache.OK
     
-    def templateAction(self, request):
+    def makoAction(self, request):
         view = self.container.get('view')
         request.content_type = "text/html"
-        request.write(view.render('/home/dev/pymvc/src/templates/hello', {}))  
+        request.write(view.render('/home/dev/pymvc/src/templates/hello', { 'subtitle': 'Hello world'}))  
         return apache.OK
-        
+
+    def cheetahAction(self, request):
+        # Templating engine should not be directly accessed, you should rather get it from the container (see makoAction)
+        view = CheetahTemplates
+        request.content_type = "text/html"
+        request.write(view.render('/home/dev/pymvc/src/templates/hello', { 'subtitle': 'Hello world'}))
+        return apache.OK
+
 class ContentController(Controller):
 
     CONTENT_BASE_PATH = '/home/dev/pymvc/src/public/'
