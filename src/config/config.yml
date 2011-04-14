@@ -1,33 +1,13 @@
 routes:
     home:
         pattern: "/"
-        controller: TorrentsController
-        action: listAction
+        controller: HelloController
+        action: helloAction
 
     content:
         pattern: "/content/{path_info:.*}"
         controller: ContentController
         action: showAction
-
-    start_all_torrents:
-        pattern: "/torrent/start/all"
-        controller: TorrentsController
-        action: startAllAction
-
-    stop_all_torrents:
-        pattern: "/torrent/stop/all"
-        controller: TorrentsController
-        action: stopAllAction
-
-    start_torrent:
-        pattern: "/torrent/start/{pid}"
-        controller: TorrentsController
-        action: startAction
-
-    stop_torrent:
-        pattern: "/torrent/stop/{pid}"
-        controller: TorrentsController
-        action: stopAction
 
 services:
     view:

@@ -2,66 +2,20 @@
 import os, sys, string
 import time
 import mimetypes
-from btorrent import BTProcess
 
 from mvc import Controller
 from mvc import Kernel
 from mvc import Daemon
 from mvc import CheetahTemplates
 
-class TorrentsController(Controller):
+class HelloController(Controller):
 
     def __init__(self, container):
         Controller.__init__(self, container)
 
-    def listAction(self, params):
-        torrents = []
-        for pid in BTProcess.getProcesses():
-            if pid:
-                process = BTProcess(pid)
-                process.name = string.replace(os.path.basename(process.torrent_file), '.torrent', '')
-                process.name = string.replace(process.name, '[www.play-the.net]', '')
-                torrents.append(process)
-
-        self.header(200, 'text/html')
-        view = self.container.get('view')
-        self.output(view.render(sys.path[0] + '/templates/list', { 'torrents': torrents , 'statistics': BTProcess.getStatistics() }))
-        
-    def startAction(self, params):
+    def helloAction(self, params):
         self.header(200, 'text/plain')
-        for pid in BTProcess.getProcesses():
-            if pid == params['pid']:
-                torrent = BTProcess(pid)
-                torrent.start()
-                self.output('OK')
-                return
-        self.output('NOK')
-                
-    def stopAction(self, params):
-        self.header(200, 'text/plain')
-        for pid in BTProcess.getProcesses():
-            if pid == params['pid']:
-                torrent = BTProcess(pid)
-                torrent.stop()
-                self.output('OK')
-                return
-        self.output('NOK')
-
-    def startAllAction(self, params):
-        self.header(200, 'text/plain')
-        for pid in BTProcess.getProcesses():
-            if pid:
-                torrent = BTProcess(pid)
-                torrent.start()
-        self.output('OK')
-
-    def stopAllAction(self, params):
-        self.header(200, 'text/plain')
-        for pid in BTProcess.getProcesses():
-            if pid:
-                torrent = BTProcess(pid)
-                torrent.stop()
-        self.output('OK')
+        self.output('Hello world')
 
 class ContentController(Controller):
 
@@ -110,9 +64,9 @@ class MyDaemon(Daemon):
 
 
 #DEBUG CODE:
-# kernel = Kernel()
-# kernel.run()
-# sys.exit(0)
+kernel = Kernel()
+kernel.run()
+sys.exit(0)
 
 
 if __name__ == '__main__':
