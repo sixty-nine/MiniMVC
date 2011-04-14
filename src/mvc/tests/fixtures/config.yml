@@ -1,0 +1,39 @@
+# Base tests
+
+foo: bar
+
+list: 
+    - one
+    - two
+    - three
+
+dict:
+    something: something else
+    whatever:
+        - list 1
+        - list 2
+
+# Test parameter expansion
+
+param1: '%foo'
+param2: '%unexisting'
+param3: '%list'
+param4: 
+    - '%foo'
+    # Not expanded (unexisting)
+    - '%bar' 
+param5:
+    - '%list'
+    - '%param4'
+param6: 
+    value1: '%foo'
+    value2: '%list'
+param7:
+    - '%param5'
+    - '%param6'
+
+services:
+    container:
+        class: mvc.Container
+    router:
+        class: mvc.Router
