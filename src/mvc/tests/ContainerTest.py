@@ -1,9 +1,9 @@
 #!/usr/bin/python
 import sys, unittest
 
-sys.path.append(sys.path[0] + '/../../' )
-from mvc import Container
-from mvc import Router
+sys.path.append(sys.path[0] + '/../' )
+from Container import Container
+from Router import Router
 
 class TestContainer(unittest.TestCase):
 
@@ -62,13 +62,6 @@ class TestContainer(unittest.TestCase):
         self.assertEquals(container.get('param5'), [['one', 'two', 'three'], ['bar', '%bar']])
         self.assertEquals(container.get('param6'), {'value1' : 'bar', 'value2' : ['one', 'two', 'three']})
         self.assertEquals(container.get('param7'), [[['one', 'two', 'three'], ['bar', '%bar']], {'value1' : 'bar', 'value2' : ['one', 'two', 'three']}])
-
-        # Services        
-        c = container.get('container')
-        self.assertTrue(isinstance(c, Container))
-        
-        r = container.get('router')
-        self.assertTrue(isinstance(r, Router))
 
         # Unexisting file
         self.assertRaises(ValueError, container.load, 'unexisting')

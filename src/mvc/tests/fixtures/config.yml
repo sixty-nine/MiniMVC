@@ -32,8 +32,3 @@ param7:
     - '%param5'
     - '%param6'
 
-services:
-    container:
-        class: mvc.Container
-    router:
-        class: mvc.Router
