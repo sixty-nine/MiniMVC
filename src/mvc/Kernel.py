@@ -20,7 +20,7 @@ class Kernel(object):
     def run(self, request):
 
         # TODO: unhardcode the script name
-        query_string = request.unparsed_uri.replace('/index.py', '')
+        query_string = request.unparsed_uri
         route = self.__router.route(query_string)
         if route:
             request.parameters = route['params']
