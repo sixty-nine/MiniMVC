@@ -34,5 +34,5 @@ class Kernel(object):
         container.set('kernel', self)
         container.set('container', container)
         #TODO: extract the config loader so that multiple formats (xml, yaml) can be used
-        container.load(self.__basepath + '/config/config.yml')
+        container.load(self.__basepath + '/app/config/config.yml')
         return container
