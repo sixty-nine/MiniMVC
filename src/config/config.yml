@@ -1,12 +1,12 @@
 routes:
     home:
         pattern: "/"
-        controller: HelloController
+        controller: app.Controllers.HelloController
         action: helloAction
 
     content:
         pattern: "/content/{path_info:.*}"
-        controller: ContentController
+        controller: app.Controllers.ContentController
         action: showAction
 
 services:
