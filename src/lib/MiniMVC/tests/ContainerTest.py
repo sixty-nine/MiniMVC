@@ -3,7 +3,6 @@ import sys, unittest
 
 sys.path.append(sys.path[0] + '/../' )
 from Container import Container
-from Router import Router
 
 # ----- TEST CLASSES -----
 
