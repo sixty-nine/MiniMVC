@@ -9,7 +9,7 @@ class Kernel(object):
 
     def __init__(self):
         
-        self.__basepath = os.path.dirname( os.path.realpath(os.path.realpath( __file__ ) + '/../' ) )
+        self.__basepath = os.path.dirname( os.path.realpath(os.path.realpath( __file__ ) + '/../../' ) )
         self.__container = self._create_container()
         self.__router = Router()
         
