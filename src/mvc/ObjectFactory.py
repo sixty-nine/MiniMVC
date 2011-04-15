@@ -29,3 +29,13 @@ class ObjectFactory:
             m = __import__(module, globals(), locals(), [comp], -1)
             c = getattr(m , comp)
         return c
+
+    @staticmethod
+    def parse_class_name(full_class_name):
+        if full_class_name.find('.') != -1:
+            parts = full_class_name.split('.')
+        else:
+            parts = ['__main__', full_class_name]
+        module = ".".join(parts[:-1])
+        cls = parts[-1:]
+        return (module, cls)
