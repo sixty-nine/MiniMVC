@@ -5,6 +5,21 @@ sys.path.append(sys.path[0] + '/../' )
 from Container import Container
 from Router import Router
 
+# ----- TEST CLASSES -----
+
+class TestClass1:
+    def __init__(self):
+        pass
+
+class TestClass2:
+    def __init__(self, name):
+        self.name = name
+        
+class TestClass3:
+    def __init__(self, class1, class2):
+        self.class1 = class1
+        self.class2 = class2
+        
 class TestContainer(unittest.TestCase):
 
     def setUp(self):
@@ -63,6 +78,22 @@ class TestContainer(unittest.TestCase):
         self.assertEquals(container.get('param6'), {'value1' : 'bar', 'value2' : ['one', 'two', 'three']})
         self.assertEquals(container.get('param7'), [[['one', 'two', 'three'], ['bar', '%bar']], {'value1' : 'bar', 'value2' : ['one', 'two', 'three']}])
 
+        # Services expansion
+        t1 = container.get('test1')
+        t2 = container.get('test2')
+        t3 = container.get('test3')
+        
+        self.assertTrue(isinstance(t1, TestClass1))
+        self.assertTrue(isinstance(t2, TestClass2))
+        self.assertTrue(isinstance(t3, TestClass3))
+        
+        self.assertEquals(t2.name, 'my_name')
+        self.assertEquals(t3.class1, t1)
+        self.assertEquals(t3.class2, t2)
+        self.assertTrue(isinstance(t3.class1, TestClass1))
+        self.assertTrue(isinstance(t3.class2, TestClass2))
+        self.assertEquals(t3.class2.name, 'my_name')
+        
         # Unexisting file
         self.assertRaises(ValueError, container.load, 'unexisting')
 

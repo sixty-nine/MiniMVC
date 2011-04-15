@@ -32,3 +32,19 @@ param7:
     - '%param5'
     - '%param6'
 
+# Test service expansion
+
+services:
+    test1:
+        class: TestClass1
+
+    test2:
+        class: TestClass2
+        params:
+            - my_name
+
+    test3:
+        class: TestClass3
+        params:
+            - '@test1'
+            - '@test2'
