@@ -20,7 +20,7 @@ class TestClass3:
         self.class1 = class1
         self.class2 = class2
         
-class TestContainer(unittest.TestCase):
+class ContainerTestCase(unittest.TestCase):
 
     def setUp(self):
         pass
