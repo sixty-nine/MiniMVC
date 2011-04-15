@@ -1,7 +1,7 @@
 #!/usr/bin/python
 import unittest
 
-from ContainerTest import ContainerTestCase, TestClass1, TestClass2, TestClass3
+from ContainerTestCase import ContainerTestCase, TestClass1, TestClass2, TestClass3
 
 
 if __name__ == '__main__':
