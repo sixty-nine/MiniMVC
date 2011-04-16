@@ -2,8 +2,8 @@ import os, sys, string
 import mimetypes
 from mod_python import apache
 
-from mvc import Controller
-from mvc import CheetahTemplates
+from MiniMVC import Controller
+from MiniMVC import CheetahTemplates
 
 class DemoController(Controller):
 

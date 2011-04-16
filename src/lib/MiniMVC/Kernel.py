@@ -12,7 +12,10 @@ class Kernel(object):
         self.__basepath = os.path.dirname( os.path.realpath(os.path.realpath( __file__ ) + '/../../' ) )
         self.__container = self._create_container()
         self.__router = Router()
-        
+
+        sys.path.append(self.__basepath)
+        import app
+
         routes = self.__container.get('routes')
         for route in routes:
             self.__router.addRoute(route, routes[route]['pattern'], routes[route]['controller'], routes[route]['action'])

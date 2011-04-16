@@ -31,11 +31,26 @@ class ObjectFactory:
         return c
 
     @staticmethod
+    def get_class_from_name(full_class_name):
+        (module_name, class_name) = ObjectFactory.parse_class_name(full_class_name)
+        module = ObjectFactory.import_module(module_name)
+        cls = ObjectFactory.get_module_class(module, class_name)
+        return (module, cls)
+
+    @staticmethod
     def parse_class_name(full_class_name):
         if full_class_name.find('.') != -1:
             parts = full_class_name.split('.')
         else:
             parts = ['__main__', full_class_name]
         module = ".".join(parts[:-1])
-        cls = parts[-1:]
+        cls = parts[-1]
         return (module, cls)
+
+    @staticmethod
+    def import_module(module_name):
+        return __import__(module_name, globals(), locals(), [], -1)
+
+    @staticmethod
+    def get_module_class(module, class_name):
+        return getattr(module, class_name)

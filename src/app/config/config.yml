@@ -21,5 +21,5 @@ routes:
 
 services:
     view:
-        class: mvc.templates.MakoTemplates
-        #class: mvc.templates.CheetahTemplates
+        class: MiniMVC.templates.MakoTemplates
+        #class: MiniMVC.templates.CheetahTemplates
