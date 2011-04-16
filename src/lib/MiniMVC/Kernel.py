@@ -7,14 +7,17 @@ from loaders.DatabaseSectionLoader import DatabaseSectionLoader
 from loaders.RoutesSectionLoader import RoutesSectionLoader
 from ObjectFactory import ObjectFactory
 from orm.ORM import ORM
-
+from logbook import Logger
+        
 
 class Kernel(object):
 
     def __init__(self):
-        
+
         self.__basepath = os.path.dirname( os.path.realpath(os.path.realpath( __file__ ) + '/../../' ) )
         self.__router = Router()
+        self.__logger = Logger('MiniMVC')
+
         self.__container = self._create_container()
 
         sys.path.append(self.__basepath)
@@ -39,6 +42,7 @@ class Kernel(object):
         container.set_param('sys.container', container)
         container.set_param('sys.basepath', self.__basepath)
         container.set_param('sys.router', self.__router)
+        container.set_param('sys.log', self.__logger)
         
         loader = ServiceContainerLoader()
         loader.register_section_loader(DatabaseSectionLoader())
