@@ -4,6 +4,7 @@ from ServiceContainer import ServiceContainer
 from ServiceContainerLoader import ServiceContainerLoader
 from loaders.ServicesSectionLoader import ServicesSectionLoader
 from loaders.DatabaseSectionLoader import DatabaseSectionLoader
+from loaders.RoutesSectionLoader import RoutesSectionLoader
 from ObjectFactory import ObjectFactory
 from orm.ORM import ORM
 
@@ -13,15 +14,11 @@ class Kernel(object):
     def __init__(self):
         
         self.__basepath = os.path.dirname( os.path.realpath(os.path.realpath( __file__ ) + '/../../' ) )
-        self.__container = self._create_container()
         self.__router = Router()
+        self.__container = self._create_container()
 
         sys.path.append(self.__basepath)
         import app
-
-        routes = self.__container.get_param('sys.routes')
-        for route in routes:
-            self.__router.addRoute(route, routes[route]['pattern'], routes[route]['controller'], routes[route]['action'])
 
     def run(self, request):
 
@@ -41,10 +38,12 @@ class Kernel(object):
         container.set_param('sys.kernel', self)
         container.set_param('sys.container', container)
         container.set_param('sys.basepath', self.__basepath)
+        container.set_param('sys.router', self.__router)
         
         loader = ServiceContainerLoader()
         loader.register_section_loader(DatabaseSectionLoader())
         loader.register_section_loader(ServicesSectionLoader())
+        loader.register_section_loader(RoutesSectionLoader())
         loader.load(container, self.__basepath + '/app/config/config.yml')
         return container
 

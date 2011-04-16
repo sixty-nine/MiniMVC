@@ -24,3 +24,6 @@ class Router(object):
             }
 
         return False
+
+    def __str__(self):
+        return "MiniMVC.Router"

@@ -1,0 +1,8 @@
+schema:
+    
+    user:
+        columns:
+            user_id: { type : Integer, primary_key : True }
+            user_name: { type : String(16), nullable = False }
+            email_address: { type: string(60) }
+            password: { type: string(20), nullable: False }

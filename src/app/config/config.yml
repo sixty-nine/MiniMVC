@@ -1,4 +1,4 @@
-sys.routes:
+routes:
     home:
         pattern: "/"
         controller: app.Controllers.DemoController
