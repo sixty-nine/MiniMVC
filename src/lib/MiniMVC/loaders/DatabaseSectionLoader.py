@@ -1,6 +1,5 @@
 import sys, os
-sys.path.append(os.path.dirname( os.path.realpath(os.path.realpath( __file__ ) + '/../../' ) ))
-from MiniMVC.orm.ORM import ORM
+from .. orm.ORM import ORM
 
 class DatabaseSectionLoader(object):
 
