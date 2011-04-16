@@ -20,6 +20,8 @@ class ServiceContainerTestCase(unittest.TestCase):
         self.assertTrue(isinstance(s, ServiceContainer))
         self.assertEquals({}, s._ServiceContainer__container)
         
+        self.assertRaises(ValueError, s.set_service, 'test', 'TestClass1')
+        
     def test_set(self):
         s = ServiceContainer()
         service_def = Service('TestClass1', ['param1', 'param2'])

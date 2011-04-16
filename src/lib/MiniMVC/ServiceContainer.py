@@ -6,6 +6,8 @@ class ServiceContainer:
         self.__container = {}
         
     def set_service(self, name, service_def):
+        if not isinstance(service_def, Service):
+            raise ValueError, "The definition of '%s' is not a Service" % (name)
         if not name in self.__container:
             self.__container[name] = service_def
         else:
