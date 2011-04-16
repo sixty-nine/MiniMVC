@@ -1,4 +1,4 @@
-class ObjectFactory:
+class ObjectFactory(object):
 
     @staticmethod
     def instantiate(full_class_name, params):

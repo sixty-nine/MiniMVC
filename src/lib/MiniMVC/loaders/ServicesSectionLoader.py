@@ -2,7 +2,7 @@ import sys, os
 sys.path.append(os.path.dirname( os.path.realpath(os.path.realpath( __file__ ) + '/../../' ) ))
 from MiniMVC. Service import Service
 
-class ServicesSectionLoader:
+class ServicesSectionLoader(object):
 
     def load(self, container, name, config):
         

@@ -1,9 +1,11 @@
 #!/usr/bin/python
 import sys, unittest
 
-sys.path.append(sys.path[0] + '/../' )
-from ServiceContainer import ServiceContainer
-from ServiceContainerLoader import ServiceContainerLoader
+sys.path.append(sys.path[0] + '/../../' )
+from MiniMVC.ServiceContainer import ServiceContainer
+from MiniMVC.ServiceContainerLoader import ServiceContainerLoader
+from MiniMVC.loaders.DatabaseSectionLoader import DatabaseSectionLoader
+from MiniMVC.loaders.ServicesSectionLoader import ServicesSectionLoader
 
 class TestClass1:
     def __init__(self):
@@ -22,7 +24,10 @@ class ServiceContainerLoaderTestCase(unittest.TestCase):
 
     def test_load(self):
         container = ServiceContainer()
-        ServiceContainerLoader.load(container, sys.path[0]  + '/fixtures/config.yml')
+        loader = ServiceContainerLoader()
+        loader.register_section_loader(DatabaseSectionLoader())
+        loader.register_section_loader(ServicesSectionLoader())
+        loader.load(container, sys.path[0]  + '/fixtures/config.yml')
 
         #container.dump()
         
