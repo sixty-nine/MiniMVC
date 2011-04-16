@@ -14,12 +14,6 @@ class DemoController(Controller):
         request.content_type = "text/html"
         request.write(view.render('index', { }))  
         return True
-
-        
-    def helloAction(self, request):
-        request.content_type = "text/plain"
-        request.write('Hello world !')
-        return True
     
     def makoAction(self, request):
         view = self.container.get_service('view')
