@@ -1,3 +1,5 @@
+from mod_python import apache 
+
 class ObjectFactory:
 
     @staticmethod
@@ -34,6 +36,7 @@ class ObjectFactory:
     def get_class_from_name(full_class_name):
         (module_name, class_name) = ObjectFactory.parse_class_name(full_class_name)
         module = ObjectFactory.import_module(module_name)
+        apache.log_error( '-------------------------------------' + full_class_name + ', ' + module_name + ', ' + class_name + ' --> ' + str(module))
         cls = ObjectFactory.get_module_class(module, class_name)
         return (module, cls)
 

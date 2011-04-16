@@ -2,13 +2,20 @@ import os, sys, string
 import mimetypes
 
 from MiniMVC import Controller
-from MiniMVC import CheetahTemplates
+from MiniMVC.view import CheetahTemplates
 
 class DemoController(Controller):
 
     def __init__(self, container):
         Controller.__init__(self, container)
 
+    def indexAction(self, request):
+        view = self.container.get_service('view')
+        request.content_type = "text/html"
+        request.write(view.render('index', { }))  
+        return True
+
+        
     def helloAction(self, request):
         request.content_type = "text/plain"
         request.write('Hello world !')
@@ -17,7 +24,7 @@ class DemoController(Controller):
     def makoAction(self, request):
         view = self.container.get_service('view')
         request.content_type = "text/html"
-        request.write(view.render(self.container.get_param('sys.basepath') + '/app/templates/hello', { 'subtitle': 'Hello world'}))  
+        request.write(view.render('hello', { 'subtitle': 'Hello world'}))  
         return True
 
     def cheetahAction(self, request):
