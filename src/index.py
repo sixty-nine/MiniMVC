@@ -8,4 +8,7 @@ from MiniMVC import Kernel
 
 def handler(req):
     kernel = Kernel()
-    return kernel.run(req)
+    if kernel.run(req):
+        return apache.OK
+    else:
+        return apache.HTTP_NOT_FOUND

@@ -1,6 +1,5 @@
 import os, sys, string
 import mimetypes
-from mod_python import apache
 
 from MiniMVC import Controller
 from MiniMVC import CheetahTemplates
@@ -13,20 +12,20 @@ class DemoController(Controller):
     def helloAction(self, request):
         request.content_type = "text/plain"
         request.write('Hello world !')
-        return apache.OK
+        return True
     
     def makoAction(self, request):
         view = self.container.get_service('view')
         request.content_type = "text/html"
         request.write(view.render(self.container.get_param('sys.basepath') + '/app/templates/hello', { 'subtitle': 'Hello world'}))  
-        return apache.OK
+        return True
 
     def cheetahAction(self, request):
         # Templating engine should not be directly accessed, you should rather get it from the container (see makoAction)
         view = CheetahTemplates
         request.content_type = "text/html"
         request.write(view.render(self.container.get_param('sys.basepath') + '/app/templates/hello', { 'subtitle': 'Hello world'}))
-        return apache.OK
+        return True
 
 class ContentController(Controller):
 
@@ -51,6 +50,6 @@ class ContentController(Controller):
 
             request.content_type = mime
             request.write(content)
-            return apache.OK
+            return True
         else:
-            return apache.HTTP_NOT_FOUND
+            return False

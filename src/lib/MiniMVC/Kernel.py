@@ -1,10 +1,9 @@
-import yaml
 import os, sys
 from Router import Router
 from ServiceContainer import ServiceContainer
 from ServiceContainerLoader import ServiceContainerLoader
 from ObjectFactory import ObjectFactory
-from mod_python import apache
+
 
 class Kernel(object):
 
@@ -31,7 +30,7 @@ class Kernel(object):
             return ObjectFactory.instantiate_and_call(route['controller'], [self.__container], route['action'], request)
         else:
             # Not found
-            return apache.HTTP_NOT_FOUND
+            return False
 
     def _create_container(self):
         container = ServiceContainer()
