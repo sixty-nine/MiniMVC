@@ -1,25 +1,4 @@
-* {
-    padding: 0;
-    margin: 0;
-}
-
 html {
     font-family: verdana;
 }
 
-table {
-    border-collapse: collapse;
-    width: 95%;
-}
-
-th {
-    vertical-align: bottom;
-    text-align: left;
-    background-color: #dfdfdf;
-    padding: 5px;
-}
-
-td {
-    vertical-align: top;
-    padding: 5px;
-}
