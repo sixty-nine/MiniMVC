@@ -40,3 +40,7 @@ class Kernel(object):
         
         ServiceContainerLoader.load(container, self.__basepath + '/app/config/config.yml')
         return container
+
+    @property
+    def container(self):
+        return self.__container
