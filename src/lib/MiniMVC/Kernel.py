@@ -16,7 +16,7 @@ class Kernel(object):
         sys.path.append(self.__basepath)
         import app
 
-        routes = self.__container.get_param('routes')
+        routes = self.__container.get_param('sys.routes')
         for route in routes:
             self.__router.addRoute(route, routes[route]['pattern'], routes[route]['controller'], routes[route]['action'])
 
@@ -26,6 +26,7 @@ class Kernel(object):
         query_string = request.unparsed_uri
         route = self.__router.route(query_string)
         if route:
+            self.__container.set_param('sys.matched_route', route)
             request.parameters = route['params']
             return ObjectFactory.instantiate_and_call(route['controller'], [self.__container], route['action'], request)
         else:
