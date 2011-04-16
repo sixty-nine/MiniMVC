@@ -14,7 +14,7 @@ from MiniMVC import Kernel
 
 def handler(req):
 
-    logger = FileHandler('/tmp/application.log', level='WARNING')
+    logger = FileHandler(os.path.dirname( os.path.realpath( __file__ ) ) + '/app/log/application.log', level = 'WARNING')
 
     def inject_info(record, handler):
         pass
