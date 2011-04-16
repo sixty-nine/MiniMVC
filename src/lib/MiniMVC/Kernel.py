@@ -2,6 +2,8 @@ import os, sys
 from Router import Router
 from ServiceContainer import ServiceContainer
 from ServiceContainerLoader import ServiceContainerLoader
+from loaders.ServicesSectionLoader import ServicesSectionLoader
+from loaders.DatabaseSectionLoader import DatabaseSectionLoader
 from ObjectFactory import ObjectFactory
 from orm.ORM import ORM
 
@@ -40,7 +42,10 @@ class Kernel(object):
         container.set_param('sys.container', container)
         container.set_param('sys.basepath', self.__basepath)
         
-        ServiceContainerLoader.load(container, self.__basepath + '/app/config/config.yml')
+        loader = ServiceContainerLoader()
+        loader.register_section_loader(ServicesSectionLoader())
+        loader.register_section_loader(DatabaseSectionLoader())
+        loader.load(container, self.__basepath + '/app/config/config.yml')
         return container
 
     def __str__(self):
