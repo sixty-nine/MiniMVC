@@ -41,8 +41,8 @@ class ServiceContainerLoader(object):
     @staticmethod
     def _load_database(container, config):
     
-        if not 'host' in config or not 'user' in config or not 'password' in config or not 'database' in config:
+        if not 'type' in config or not 'host' in config or not 'user' in config or not 'password' in config or not 'database' in config:
             raise ValueError, "Invalid database configuration"
             
-        orm = ORM(config['host'], config['user'], config['password'], config['database'])
+        orm = ORM(config['type'], config['host'], config['user'], config['password'], config['database'])
         container.set_param('sys.orm', orm)

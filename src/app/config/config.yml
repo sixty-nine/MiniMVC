@@ -20,6 +20,7 @@ sys.routes:
         action: showAction
 
 sys.database:
+    type: mysql
     host: deimos
     user: test
     password: 123123
