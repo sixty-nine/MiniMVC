@@ -63,3 +63,6 @@ class ServiceContainer(Container):
                 return service_def.instance
         
         raise ValueError, "Impossible to instantiate service '%s'" % (service_def.full_class_name)
+
+    def __str__(self):
+        return "MiniMVC.ServiceContainer"

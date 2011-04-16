@@ -42,6 +42,9 @@ class Kernel(object):
         ServiceContainerLoader.load(container, self.__basepath + '/app/config/config.yml')
         return container
 
+    def __str__(self):
+        return "MiniMVC.Kernel"
+        
     @property
     def container(self):
         return self.__container

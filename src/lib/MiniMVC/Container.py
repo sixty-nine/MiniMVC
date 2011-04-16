@@ -39,3 +39,6 @@ class Container(object):
             return new_value
 
         return value
+
+    def __str__(self):
+        return "MiniMVC.Container"
