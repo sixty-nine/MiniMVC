@@ -1,6 +1,6 @@
 from ObjectFactory import ObjectFactory
 
-class Service:
+class Service(object):
 
     def __init__(self, full_class_name, constructor_params):
         (module, cls) = ObjectFactory.get_class_from_name(full_class_name)
@@ -16,7 +16,7 @@ class Service:
         for param in constructor_params:
             if isinstance(param, basestring) and param.startswith('@'):
                 self.dependencies.append(param[1:])
-        
+
     def setPersistent(self, flag):
         self.is_persistent = flag
 

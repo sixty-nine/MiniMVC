@@ -1,10 +1,10 @@
 from Service import Service
 
-class ServiceContainer:
+class ServiceContainer(object):
     
     def __init__(self):
         self.__container = {}
-        
+
     def set_service(self, name, service_def):
         if not isinstance(service_def, Service):
             raise ValueError, "The definition of '%s' is not a Service" % (name)
