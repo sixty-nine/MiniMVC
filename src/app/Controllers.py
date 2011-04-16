@@ -16,16 +16,16 @@ class DemoController(Controller):
         return apache.OK
     
     def makoAction(self, request):
-        view = self.container.get('view')
+        view = self.container.get_service('view')
         request.content_type = "text/html"
-        request.write(view.render(self.container.get('basepath') + '/app/templates/hello', { 'subtitle': 'Hello world'}))  
+        request.write(view.render(self.container.get_param('sys.basepath') + '/app/templates/hello', { 'subtitle': 'Hello world'}))  
         return apache.OK
 
     def cheetahAction(self, request):
         # Templating engine should not be directly accessed, you should rather get it from the container (see makoAction)
         view = CheetahTemplates
         request.content_type = "text/html"
-        request.write(view.render(self.container.get('basepath') + '/app/templates/hello', { 'subtitle': 'Hello world'}))
+        request.write(view.render(self.container.get_param('sys.basepath') + '/app/templates/hello', { 'subtitle': 'Hello world'}))
         return apache.OK
 
 class ContentController(Controller):
@@ -36,7 +36,7 @@ class ContentController(Controller):
     def showAction(self, request):
 
         path = request.parameters['path_info']
-        filename = self.container.get('basepath') + '/app/public/' + path
+        filename = self.container.get_param('sys.basepath') + '/app/public/' + path
         if os.access(filename, os.R_OK) and not os.path.isdir(filename):
             #TODO: is there any possibility to access files outside the root with ..?
             file = open(filename, "r")

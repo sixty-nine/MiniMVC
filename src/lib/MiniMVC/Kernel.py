@@ -1,7 +1,8 @@
 import yaml
 import os, sys
 from Router import Router
-from Container import Container
+from ServiceContainer import ServiceContainer
+from ServiceContainerLoader import ServiceContainerLoader
 from ObjectFactory import ObjectFactory
 from mod_python import apache
 
@@ -16,7 +17,7 @@ class Kernel(object):
         sys.path.append(self.__basepath)
         import app
 
-        routes = self.__container.get('routes')
+        routes = self.__container.get_param('routes')
         for route in routes:
             self.__router.addRoute(route, routes[route]['pattern'], routes[route]['controller'], routes[route]['action'])
 
@@ -33,10 +34,10 @@ class Kernel(object):
             return apache.HTTP_NOT_FOUND
 
     def _create_container(self):
-        container = Container()
-        container.set('kernel', self)
-        container.set('container', container)
-        container.set('basepath', self.__basepath)
-        #TODO: extract the config loader so that multiple formats (xml, yaml) can be used
-        container.load(self.__basepath + '/app/config/config.yml')
+        container = ServiceContainer()
+        container.set_param('sys.kernel', self)
+        container.set_param('sys.container', container)
+        container.set_param('sys.basepath', self.__basepath)
+        
+        ServiceContainerLoader.load(container, self.__basepath + '/app/config/config.yml')
         return container

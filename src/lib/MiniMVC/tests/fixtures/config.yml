@@ -36,15 +36,15 @@ param7:
 
 services:
     test1:
-        class: TestClass1
+        class: ServiceContainerLoaderTestCase.TestClass1
 
     test2:
-        class: TestClass2
+        class: ServiceContainerLoaderTestCase.TestClass2
         params:
             - my_name
 
     test3:
-        class: TestClass3
+        class: ServiceContainerLoaderTestCase.TestClass3
         params:
             - '@test1'
             - '@test2'

@@ -20,3 +20,5 @@ class Service(object):
     def setPersistent(self, flag):
         self.is_persistent = flag
 
+    def __str__(self):
+        return self.full_class_name + "(" + str(self.constructor_params) + ")"

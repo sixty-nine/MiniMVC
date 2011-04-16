@@ -1,8 +1,10 @@
 from Service import Service
+from Container import Container
 
-class ServiceContainer(object):
+class ServiceContainer(Container):
     
     def __init__(self):
+        Container.__init__(self)
         self.__container = {}
 
     def set_service(self, name, service_def):
@@ -19,6 +21,16 @@ class ServiceContainer(object):
         else:
             raise ValueError, "Service '%s' does not exist in container" % (name)
 
+    def dump(self):
+        print "\n-----( SERVICE CONTAINER DUMP )-----"
+        print "\nPARAMETERS:"
+        for name in self._Container__container:
+            print name, "=", self._Container__container[name]
+        print "\nSERVICES:"
+        for name in self.__container:
+            print name, "=", self.__container[name]
+        print "\n\n"
+            
     def _get_instance(self, name, to_instantiate):
         service_def = self.__container[name]
         
@@ -42,6 +54,8 @@ class ServiceContainer(object):
                 for param in service_def.constructor_params:
                     if isinstance(param, basestring) and param.startswith('@'):
                         params.append(self.get_service(param[1:]))
+                    elif isinstance(param, basestring) and param.startswith('%'):
+                        params.append(self.get_param(param[1:]))
                     else:
                         params.append(param)
                         
