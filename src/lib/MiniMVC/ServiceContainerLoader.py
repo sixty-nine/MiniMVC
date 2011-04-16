@@ -1,5 +1,6 @@
 import sys, os, yaml
 from Service import Service
+from orm.ORM import ORM
 
 class ServiceContainerLoader(object):
     
@@ -14,6 +15,8 @@ class ServiceContainerLoader(object):
         for item in config:
             if item == 'services':
                 ServiceContainerLoader._load_services(container, config[item])
+            elif item == 'sys.database':
+                ServiceContainerLoader._load_database(container, config[item])
             else:
                 container.set_param(item, config[item])
 
@@ -35,4 +38,11 @@ class ServiceContainerLoader(object):
             service = Service(service_def['class'], params)
             container.set_service(name, service)
 
-
+    @staticmethod
+    def _load_database(container, config):
+    
+        if not 'host' in config or not 'user' in config or not 'password' in config or not 'database' in config:
+            raise ValueError, "Invalid database configuration"
+            
+        orm = ORM(config['host'], config['user'], config['password'], config['database'])
+        container.set_param('sys.orm', orm)

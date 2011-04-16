@@ -19,6 +19,12 @@ sys.routes:
         controller: app.Controllers.ContentController
         action: showAction
 
+sys.database:
+    host: deimos
+    user: test
+    password: 123123
+    database: test
+
 services:
     view:
          class: MiniMVC.MakoTemplates

@@ -3,6 +3,7 @@ from Router import Router
 from ServiceContainer import ServiceContainer
 from ServiceContainerLoader import ServiceContainerLoader
 from ObjectFactory import ObjectFactory
+from orm.ORM import ORM
 
 
 class Kernel(object):
