@@ -29,9 +29,9 @@ class DemoController(Controller):
 
     def cheetahAction(self, request):
         # Templating engine should not be directly accessed, you should rather get it from the container (see makoAction)
-        view = CheetahTemplates
+        view = CheetahTemplates(self.container)
         request.content_type = "text/html"
-        request.write(view.render(self.container.get_param('sys.basepath') + '/app/templates/hello', { 'subtitle': 'Hello world'}))
+        request.write(view.render('hello', { 'subtitle': 'Hello world'}))
         return True
 
 class ContentController(Controller):

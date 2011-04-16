@@ -1,7 +1,7 @@
 from mako.template import Template
 from mako.lookup import TemplateLookup
 
-class MakoTemplates:
+class MakoTemplates(object):
     
     def __init__(self, container):
         self.container = container

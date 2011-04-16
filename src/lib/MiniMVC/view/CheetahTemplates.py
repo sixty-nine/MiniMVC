@@ -1,7 +1,9 @@
 from Cheetah.Template import Template
 
-class CheetahTemplates:
+class CheetahTemplates(object):
     
-    @staticmethod
-    def render(template, params):
-        return str(Template ( file =template + '.cheetah', searchList = [params] ))
+    def __init__(self, container):
+        self.container = container
+
+    def render(self, template, params):
+        return str(Template ( file = self.container.get_param('sys.basepath') + '/app/templates/' + template + '.cheetah', searchList = [params] ))
