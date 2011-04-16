@@ -17,7 +17,10 @@ class ServiceContainerLoader(object):
         stream = file(yamlfile, 'r')
         config = yaml.load(stream)
         for item in config:
+            handled = False
             for loader in self.__loaders:
-                if loader.load(container, config[item]):
-                    continue
-            container.set_param(item, config[item])
+                handled = loader.load(container, item, config[item])
+                if handled: break
+            
+            if not handled:
+                container.set_param(item, config[item])

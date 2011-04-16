@@ -43,8 +43,8 @@ class Kernel(object):
         container.set_param('sys.basepath', self.__basepath)
         
         loader = ServiceContainerLoader()
-        loader.register_section_loader(ServicesSectionLoader())
         loader.register_section_loader(DatabaseSectionLoader())
+        loader.register_section_loader(ServicesSectionLoader())
         loader.load(container, self.__basepath + '/app/config/config.yml')
         return container
 

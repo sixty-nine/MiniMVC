@@ -19,7 +19,7 @@ sys.routes:
         controller: app.Controllers.ContentController
         action: showAction
 
-sys.database:
+database:
     type: mysql
     host: deimos
     user: test
