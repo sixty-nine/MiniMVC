@@ -29,7 +29,7 @@ database:
 logfile: /tmp/log.log
 
 services:
-    view:
+    sys.view:
          class: MiniMVC.MakoTemplates
          params:
             - '%sys.container'
@@ -55,6 +55,7 @@ services:
         named_params:
             level: WARNING
 
+    # Internaly used to display debug info on the web pages / do not remove
     log.test_handler:
         persistent: True
         class: logbook.TestHandler

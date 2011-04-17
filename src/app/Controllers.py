@@ -10,13 +10,13 @@ class DemoController(Controller):
         Controller.__init__(self, container)
 
     def indexAction(self, request):
-        view = self.container.get_service('view')
+        view = self.container.get_service('sys.view')
         request.content_type = "text/html"
         request.write(view.render('index', { }))  
         return True
     
     def makoAction(self, request):
-        view = self.container.get_service('view')
+        view = self.container.get_service('sys.view')
         request.content_type = "text/html"
         request.write(view.render('hello', { 'subtitle': 'Hello world'}))  
         return True
