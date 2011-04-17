@@ -26,9 +26,26 @@ database:
     password: 123123
     database: test
 
+logfile: /tmp/log.log
+
 services:
     view:
          class: MiniMVC.MakoTemplates
          params:
             - '%sys.container'
-        #class: MiniMVC.view.CheetahTemplates
+
+    log.handler:
+        class: logbook.NestedSetup
+        params:
+            - '@log.null_handler'
+            - '@log.file_handler'
+
+    log.null_handler:
+        class: logbook.NullHandler
+
+    log.file_handler:
+        class: logbook.FileHandler
+        params:
+            - '%log_file'
+        named_params:
+            level: WARNING

@@ -48,3 +48,10 @@ services:
         params:
             - '@test1'
             - '@test2'
+
+    test4:
+        class: ServiceContainerLoaderTestCase.TestClass4
+        params: ~
+        named_params:
+            a : 0
+            b : 1

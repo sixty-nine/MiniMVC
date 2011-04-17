@@ -14,16 +14,19 @@ class ServicesSectionLoader(object):
             
             if not 'class' in service_def:
                 return False
-                
+
             if 'params' in service_def:
                 params = service_def['params']
             else:
                 params = []
 
-            # TODO: named parameters
+            named_params = {}
+            if 'named_params' in service_def:
+                named_params = service_def['named_params']
+                
             # TODO: property injection
                 
-            service = Service(service_def['class'], params)
+            service = Service(service_def['class'], params, named_params)
             container.set_service(name, service)
 
         return True

@@ -51,15 +51,27 @@ class ServiceContainer(Container):
         else:
             if callable(service_def.cls):
                 params = []
-                for param in service_def.constructor_params:
-                    if isinstance(param, basestring) and param.startswith('@'):
-                        params.append(self.get_service(param[1:]))
-                    elif isinstance(param, basestring) and param.startswith('%'):
-                        params.append(self.get_param(param[1:]))
-                    else:
-                        params.append(param)
-                        
-                service_def.instance = service_def.cls(*params)
+                if service_def.constructor_params:
+                    for param in service_def.constructor_params:
+                        if isinstance(param, basestring) and param.startswith('@'):
+                            params.append(self.get_service(param[1:]))
+                        elif isinstance(param, basestring) and param.startswith('%'):
+                            params.append(self.get_param(param[1:]))
+                        else:
+                            params.append(param)
+                
+                named_params = {}
+                if service_def.constructor_named_params:
+                    for param in service_def.constructor_named_params:
+                        value = service_def.constructor_named_params[param]
+                        if isinstance(value, basestring) and value.startswith('@'):
+                            named_params[param] = self.get_service(value[1:])
+                        elif isinstance(value, basestring) and value.startswith('%'):
+                            named_params[param] = self.get_param(value[1:])
+                        else:
+                            named_params[param] = value
+
+                service_def.instance = service_def.cls(*params, **named_params)
                 return service_def.instance
         
         raise ValueError, "Impossible to instantiate service '%s'" % (service_def.full_class_name)

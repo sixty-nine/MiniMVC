@@ -19,6 +19,12 @@ class TestClass3:
     def __init__(self, class1, class2):
         self.class1 = class1
         self.class2 = class2
+        
+class TestClass4:
+    def __init__(self, a = 1, b = 2, c = 3):
+        self.a = a
+        self.b = b
+        self.c = c
 
 class ServiceContainerLoaderTestCase(unittest.TestCase):
 
@@ -55,6 +61,13 @@ class ServiceContainerLoaderTestCase(unittest.TestCase):
         self.assertEquals('my_name', i2.name)
         self.assertTrue(isinstance(i3.class1, getattr(sys.modules['ServiceContainerLoaderTestCase'], 'TestClass1')))
         self.assertTrue(isinstance(i3.class2, getattr(sys.modules['ServiceContainerLoaderTestCase'], 'TestClass2')))
+
+        # Service named params
+        i4 = container.get_service('test4')
+        self.assertTrue(isinstance(i4, getattr(sys.modules['ServiceContainerLoaderTestCase'], 'TestClass4')))
+        self.assertEquals(0, i4.a)
+        self.assertEquals(1, i4.b)
+        self.assertEquals(3, i4.c)
 
 if __name__ == '__main__':
     unittest.main()
