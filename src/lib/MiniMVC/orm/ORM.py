@@ -2,7 +2,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 
-class ORM:
+class ORM(object):
 
     def __init__(self, type, host, user, password, database):
         self.type = type
