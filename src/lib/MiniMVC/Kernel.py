@@ -50,9 +50,13 @@ class Kernel(object):
         else:
             self.__logger.warn('No matching route found for: ' + query_string)
             res = False
-        
+
         # Shutdown logger and return
         self.__log_handler.pop_thread()
+
+        # Return the local request log
+        self.request_log = self.__container.get_service('log.test_handler').records
+        
         return res
 
     def _create_container(self):

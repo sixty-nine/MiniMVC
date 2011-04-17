@@ -1,7 +1,7 @@
 from __future__ import with_statement
 import sys, os, time
 from mod_python import apache
-from logbook import FileHandler
+import logbook
 import cgi
 
 DEBUG = True
@@ -14,12 +14,9 @@ from MiniMVC import Kernel
 
 def handler(req):
 
-    #logger = FileHandler(os.path.dirname( os.path.realpath( __file__ ) ) + '/app/log/application.log', level = 'WARNING')
-
     def inject_info(record, handler):
         pass
     
-    #with logger.threadbound():
     if DEBUG: t1 = time.time()
     kernel = Kernel()
     res = kernel.run(req)
@@ -40,4 +37,7 @@ def show_debug_info(req, t1, t2, kernel):
     req.write('  Services\n')
     for name in sorted(kernel.container._ServiceContainer__container.keys()):
         req.write("    %s = %s\n" % (name, cgi.escape(str(kernel.container._ServiceContainer__container[name]))))
+    req.write('Request log:\n')
+    for log in kernel.request_log:
+        req.write('  %s - %s - %s\n' % (log.time, logbook.base._level_names[log.level], log.msg)) 
     req.write('</pre>')
