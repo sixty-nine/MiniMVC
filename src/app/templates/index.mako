@@ -21,6 +21,7 @@
     
     <p>TODO</p>
     <ul>
+        <li>Don't render the content files through the kernel</li>
         <li>Write more tests</li>
         <li>Reorganize imports</li>
         <li>Configure SQLAlchemy with the ServiceContainer</li>
