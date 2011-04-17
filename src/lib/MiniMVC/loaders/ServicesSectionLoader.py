@@ -19,6 +19,9 @@ class ServicesSectionLoader(object):
                 params = service_def['params']
             else:
                 params = []
+
+            # TODO: named parameters
+            # TODO: property injection
                 
             service = Service(service_def['class'], params)
             container.set_service(name, service)
