@@ -7,6 +7,9 @@ class ServiceContainer(Container):
         Container.__init__(self)
         self.__container = {}
 
+    def has_service(self, name):
+        return name in self.__container
+        
     def set_service(self, name, service_def):
         if not isinstance(service_def, Service):
             raise ValueError, "The definition of '%s' is not a Service" % (name)
@@ -53,28 +56,51 @@ class ServiceContainer(Container):
                 params = []
                 if service_def.constructor_params:
                     for param in service_def.constructor_params:
-                        if isinstance(param, basestring) and param.startswith('@'):
-                            params.append(self.get_service(param[1:]))
-                        elif isinstance(param, basestring) and param.startswith('%'):
-                            params.append(self.get_param(param[1:]))
-                        else:
-                            params.append(param)
-                
+                        params.append(self._expand_parameter(param))
+
                 named_params = {}
                 if service_def.constructor_named_params:
                     for param in service_def.constructor_named_params:
                         value = service_def.constructor_named_params[param]
-                        if isinstance(value, basestring) and value.startswith('@'):
-                            named_params[param] = self.get_service(value[1:])
-                        elif isinstance(value, basestring) and value.startswith('%'):
-                            named_params[param] = self.get_param(value[1:])
-                        else:
-                            named_params[param] = value
+                        named_params[param] = self._expand_parameter(value)
 
-                service_def.instance = service_def.cls(*params, **named_params)
+                #print('\n---> Service.Container._get_instance(' + name + ', ' + str(to_instantiate) + ') --> ' + service_def.full_class_name + '(' + str(params) + ', ' + str(named_params) + ')' )
+
+                if params != [] and named_params != {}:
+                    service_def.instance = service_def.cls(*params, **named_params)
+                elif params == [] and named_params != {}:
+                    service_def.instance = service_def.cls(**named_params)
+                elif params != [] and named_params == {}:
+                    service_def.instance = service_def.cls(*params)
+                else:
+                    service_def.instance = service_def.cls()
+
                 return service_def.instance
         
         raise ValueError, "Impossible to instantiate service '%s'" % (service_def.full_class_name)
 
+    def _expand_parameter(self, value):
+        if isinstance(value, basestring) and value.startswith('@'):
+            # Service
+            return self.get_service(value[1:])
+        elif isinstance(value, basestring) and value.startswith('%'):
+            # Parameter
+            return self.get_param(value[1:])
+        elif isinstance(value, list):
+            # List
+            res = []
+            for item in value:
+                res.append(self._expand_parameter(item))
+            return res
+        elif isinstance(value, dict):
+            # Dictionnary
+            res = {}
+            for key in value:
+                res[key] = self._expand_parameter(value[key])
+            return res
+
+        # Normal value
+        return value
+        
     def __str__(self):
         return "MiniMVC.ServiceContainer"

@@ -1,5 +1,6 @@
 #!/usr/bin/python
 import sys, unittest
+import logbook 
 
 sys.path.append(sys.path[0] + '/../../' )
 from MiniMVC.ServiceContainer import ServiceContainer
@@ -68,6 +69,21 @@ class ServiceContainerLoaderTestCase(unittest.TestCase):
         self.assertEquals(0, i4.a)
         self.assertEquals(1, i4.b)
         self.assertEquals(3, i4.c)
+
+        # Complex service
+        log1 = container.get_service('log.handler')
+        log2 = container.get_service('log.null_handler')
+        log3 = container.get_service('log.file_handler')
+
+        self.assertTrue(isinstance(log1, logbook.NestedSetup))
+        self.assertTrue(isinstance(log2, logbook.NullHandler))
+        self.assertTrue(isinstance(log3, logbook.FileHandler))
+        
+        self.assertEquals(log1.objects[0], log2)
+        self.assertEquals(log1.objects[1], log3)
+        self.assertEquals(log3._filename, '/tmp/testlog.log')
+        self.assertEquals(log3.level, logbook.WARNING)
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -27,6 +27,10 @@ class ServicesSectionLoader(object):
             # TODO: property injection
                 
             service = Service(service_def['class'], params, named_params)
+            
+            if 'persistent' in service_def and isinstance(service_def['persistent'], bool) and service_def['persistent']:
+                service.setPersistent(True)
+            
             container.set_service(name, service)
 
         return True

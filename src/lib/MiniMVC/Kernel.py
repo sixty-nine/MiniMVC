@@ -7,19 +7,31 @@ from loaders.DatabaseSectionLoader import DatabaseSectionLoader
 from loaders.RoutesSectionLoader import RoutesSectionLoader
 from ObjectFactory import ObjectFactory
 from orm.ORM import ORM
-from logbook import Logger
+from logbook import Logger, NullHandler
         
 
 class Kernel(object):
 
     def __init__(self):
 
+        # Basic setup
         self.__basepath = os.path.dirname( os.path.realpath(os.path.realpath( __file__ ) + '/../../' ) )
         self.__router = Router()
-        self.__logger = Logger('MiniMVC')
 
+        # Load container
         self.__container = self._create_container()
 
+        # Setup logging
+        if self.__container.has_service('log.handler'):
+            self.__log_handler = self.__container.get_service('log.handler')
+        else:
+            self.__log_handler = NullHandler()
+
+        self.__log_handler.push_thread()
+        self.__logger = Logger('MiniMVC')
+        self.__container.set_param('sys.log', self.__logger)
+        
+        # Import application
         sys.path.append(self.__basepath)
         import app
 
@@ -27,7 +39,6 @@ class Kernel(object):
 
     def run(self, request):
 
-        # TODO: unhardcode the script name
         query_string = request.unparsed_uri
         self.__logger.info('Request: ' + query_string)
         route = self.__router.route(query_string)
@@ -35,10 +46,14 @@ class Kernel(object):
             self.__logger.info('Route matched: %s.%s(%s)' % (route['controller'], route['action'], route['params']))
             self.__container.set_param('sys.matched_route', route)
             request.parameters = route['params']
-            return ObjectFactory.instantiate_and_call(route['controller'], [self.__container], route['action'], request)
+            res = ObjectFactory.instantiate_and_call(route['controller'], [self.__container], route['action'], request)
         else:
             self.__logger.warn('No matching route found for: ' + query_string)
-            return False
+            res = False
+        
+        # Shutdown logger and return
+        self.__log_handler.pop_thread()
+        return res
 
     def _create_container(self):
         container = ServiceContainer()
@@ -46,7 +61,7 @@ class Kernel(object):
         container.set_param('sys.container', container)
         container.set_param('sys.basepath', self.__basepath)
         container.set_param('sys.router', self.__router)
-        container.set_param('sys.log', self.__logger)
+        #container.set_param('sys.log', self.__logger)
         
         loader = ServiceContainerLoader()
         loader.register_section_loader(DatabaseSectionLoader())

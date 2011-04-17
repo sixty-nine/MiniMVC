@@ -32,6 +32,8 @@ param7:
     - '%param5'
     - '%param6'
 
+logfile: /tmp/testlog.log
+
 # Test service expansion
 
 services:
@@ -55,3 +57,24 @@ services:
         named_params:
             a : 0
             b : 1
+    
+    # Complex service
+    log.handler:
+        persistent: True
+        class: logbook.NestedSetup
+        named_params:
+            objects:
+                - '@log.null_handler'
+                - '@log.file_handler'
+
+    log.null_handler:
+        persistent: True
+        class: logbook.NullHandler
+
+    log.file_handler:
+        persistent: True
+        class: logbook.FileHandler
+        params:
+            - '%logfile'
+        named_params:
+            level: WARNING

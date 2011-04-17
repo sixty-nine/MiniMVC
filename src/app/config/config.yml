@@ -36,9 +36,10 @@ services:
 
     log.handler:
         class: logbook.NestedSetup
-        params:
-            - '@log.null_handler'
-            - '@log.file_handler'
+        named_params:
+            objects:
+                - '@log.null_handler'
+                - '@log.file_handler'
 
     log.null_handler:
         class: logbook.NullHandler
@@ -46,6 +47,6 @@ services:
     log.file_handler:
         class: logbook.FileHandler
         params:
-            - '%log_file'
+            - '%logfile'
         named_params:
             level: WARNING
