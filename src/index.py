@@ -29,15 +29,15 @@ def handler(req):
 
 def show_debug_info(req, t1, t2, kernel):
     req.write('<pre>')
-    req.write('\n\n----------( DEBUG INFORMATION )----------\n\n')
-    req.write( 'Rendering: %0.3f ms\n' % ((t2-t1)*1000.0) )
-    req.write('Service container:\n  Parameters\n')
+    req.write('\n\n----------( DEBUG INFORMATION )----------\n')
+    req.write( '\n>>> Rendering: %0.3f ms\n' % ((t2-t1)*1000.0) )
+    req.write('\n>>> Service container:\n\n  Parameters\n')
     for name in sorted(kernel.container._Container__container.keys()):
         req.write("    %s = %s\n" % (name, cgi.escape(str(kernel.container._Container__container[name]))))
-    req.write('  Services\n')
+    req.write('\n  Services\n')
     for name in sorted(kernel.container._ServiceContainer__container.keys()):
         req.write("    %s = %s\n" % (name, cgi.escape(str(kernel.container._ServiceContainer__container[name]))))
-    req.write('Request log:\n')
+    req.write('\n>>> Request log:\n\n')
     for log in kernel.request_log:
         req.write('  %s - %s - %s\n' % (log.time, logbook.base._level_names[log.level], log.msg)) 
     req.write('</pre>')
