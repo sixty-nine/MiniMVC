@@ -1,0 +1,35 @@
+About MiniMVC
+
+MiniMVC is a Python micro MVC framework inspired by Symfony2 from the PHP world.
+
+    MiniMVC is lightweighted
+    MiniMVC uses dependency injection
+    MiniMVC is configured with YAML
+    MiniMVC is tested (partially)
+
+MiniMVC features:
+
+    A configurable service container
+    A flexible and configurable request router based on pyroutes
+    Powerful logging mechanism based on logbook
+    Basic SQL Alchemy binding
+    Cheetah and Mako templates, new templating engines can be added very easily
+
+TODO
+
+    Don't render the content files through the kernel
+    Write more tests
+    Reorganize imports
+    Configure SQLAlchemy with the ServiceContainer
+        Generate table classes
+        Generate entities
+    Read XML configuration in addition to yaml
+    More templating engines
+    ...
+
+About the author
+
+I am not an experienced Python programmer so please forgive me if MiniMVC is not state of the art code. I started MiniMVC just for fun and to learn mod_python :-)
+
+Feel free to contact me with your feedback about MiniMVC or if you want to contribute to make it better. I will mantain MiniMVC if there is some interest out there.
+
