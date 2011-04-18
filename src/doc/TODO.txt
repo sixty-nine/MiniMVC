@@ -1,2 +1,0 @@
-- Resolve the services dependencies in the Container
-- Lazy instanciation of the services (on get not on load)
