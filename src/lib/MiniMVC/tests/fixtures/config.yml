@@ -15,22 +15,21 @@ dict:
 
 # Test parameter expansion
 
-param1: '%foo'
-param2: '%unexisting'
-param3: '%list'
+param1: '%foo%'
+param2: '%unexisting%'
+param3: '%list%'
 param4: 
-    - '%foo'
-    # Not expanded (unexisting)
-    - '%bar' 
+    - '%foo%'
+    - bar
 param5:
-    - '%list'
-    - '%param4'
+    - '%list%'
+    - '%param4%'
 param6: 
-    value1: '%foo'
-    value2: '%list'
+    value1: '%foo%'
+    value2: '%list%'
 param7:
-    - '%param5'
-    - '%param6'
+    - '%param5%'
+    - '%param6%'
 
 logfile: /tmp/testlog.log
 
@@ -75,6 +74,6 @@ services:
         persistent: True
         class: logbook.FileHandler
         params:
-            - '%logfile'
+            - '%logfile%'
         named_params:
             level: WARNING

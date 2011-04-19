@@ -32,7 +32,7 @@ services:
     sys.view:
          class: MiniMVC.MakoTemplates
          params:
-            - '%sys.container'
+            - '%sys.container%'
 
     log.handler:
         persistent: True
@@ -51,7 +51,7 @@ services:
         persistent: True
         class: logbook.FileHandler
         params:
-            - '%log.logfile'
+            - '%log.logfile%'
         named_params:
             level: WARNING
 

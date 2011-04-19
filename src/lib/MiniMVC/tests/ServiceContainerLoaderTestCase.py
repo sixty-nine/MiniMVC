@@ -43,12 +43,12 @@ class ServiceContainerLoaderTestCase(unittest.TestCase):
         self.assertEquals(['one', 'two', 'three'], container.get_param('list'))
         self.assertEquals({'something': 'something else', 'whatever': ['list 1', 'list 2']}, container.get_param('dict'))
         self.assertEquals('bar', container.get_param('param1'))
-        self.assertEquals('%unexisting', container.get_param('param2'))
+        self.assertRaises(ValueError, container.get_param, 'param2')
         self.assertEquals(['one', 'two', 'three'], container.get_param('param3'))
-        self.assertEquals(['bar', '%bar'], container.get_param('param4'))
-        self.assertEquals([['one', 'two', 'three'], ['bar', '%bar']], container.get_param('param5'))
+        self.assertEquals(['bar', 'bar'], container.get_param('param4'))
+        self.assertEquals([['one', 'two', 'three'], ['bar', 'bar']], container.get_param('param5'))
         self.assertEquals({'value2': ['one', 'two', 'three'], 'value1': 'bar'}, container.get_param('param6'))
-        self.assertEquals([[['one', 'two', 'three'], ['bar', '%bar']], {'value2': ['one', 'two', 'three'], 'value1': 'bar'}], container.get_param('param7'))
+        self.assertEquals([[['one', 'two', 'three'], ['bar', 'bar']], {'value2': ['one', 'two', 'three'], 'value1': 'bar'}], container.get_param('param7'))
         
         # Test services
         i1 = container.get_service('test1')

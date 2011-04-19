@@ -1,3 +1,5 @@
+import re
+
 class Container(object):
 
     def __init__(self):
@@ -17,12 +19,7 @@ class Container(object):
             raise ValueError, "Key '%s' does not exist in container" % (key)
 
     def _expand_parameters(self, value):
-        if isinstance(value, basestring) and value.startswith('%'):
-            # string
-            key = value[1:]
-            if key in self.__container:
-                return self._expand_parameters(self.__container[key])
-        elif isinstance(value, list):
+        if isinstance(value, list):
             # list
             new_value = []
             for item in value:
@@ -35,6 +32,21 @@ class Container(object):
                 new_value[key] = self._expand_parameters(value[key])
             return new_value
 
+        while isinstance(value, basestring):
+            m = re.search('%(.*)%', value)
+            if not m: break
+            key = m.group(1)
+            if key in self.__container:
+                if isinstance(self.__container[key], basestring):
+                    value = value.replace('%'+key+'%', self.__container[key])
+                else:
+                    if '%'+key+'%' == value:
+                        value = self._expand_parameters(self.__container[key])
+                    else:
+                        raise ValueError, "Error while trying to expand the parameter '%s' in the expression '%s'" % (key, value)
+            else:
+                raise ValueError, "The parameter '%s' was not found in the container" % (key)
+            
         return value
 
     def __str__(self):

@@ -56,13 +56,13 @@ class ServiceContainer(Container):
                 params = []
                 if service_def.constructor_params:
                     for param in service_def.constructor_params:
-                        params.append(self._expand_parameter(param))
+                        params.append(self._expand(param))
 
                 named_params = {}
                 if service_def.constructor_named_params:
                     for param in service_def.constructor_named_params:
                         value = service_def.constructor_named_params[param]
-                        named_params[param] = self._expand_parameter(value)
+                        named_params[param] = self._expand(value)
 
                 #print('\n---> Service.Container._get_instance(' + name + ', ' + str(to_instantiate) + ') --> ' + service_def.full_class_name + '(' + str(params) + ', ' + str(named_params) + ')' )
 
@@ -79,27 +79,30 @@ class ServiceContainer(Container):
         
         raise ValueError, "Impossible to instantiate service '%s'" % (service_def.full_class_name)
 
-    def _expand_parameter(self, value):
-        if isinstance(value, basestring) and value.startswith('@'):
-            # Service
-            return self.get_service(value[1:])
-        elif isinstance(value, basestring) and value.startswith('%'):
-            # Parameter
-            return self.get_param(value[1:])
+    def _expand(self, value):
+        if isinstance(value, basestring):
+            if value.startswith('@'):
+                # Service
+                return self.get_service(value[1:])
+            else:
+                return Container._expand_parameters(self, value)
+        # elif isinstance(value, basestring) and value.startswith('%'):
+            # # Parameter
+            # return self.get_param(value[1:])
         elif isinstance(value, list):
             # List
             res = []
             for item in value:
-                res.append(self._expand_parameter(item))
+                res.append(self._expand(item))
             return res
         elif isinstance(value, dict):
             # Dictionnary
             res = {}
             for key in value:
-                res[key] = self._expand_parameter(value[key])
+                res[key] = self._expand(value[key])
             return res
 
-        # Normal value
+        # Normal value, replace parameters
         return value
         
     def __str__(self):

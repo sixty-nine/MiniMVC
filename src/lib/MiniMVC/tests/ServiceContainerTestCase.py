@@ -38,7 +38,7 @@ class ServiceContainerTestCase(unittest.TestCase):
 
     def test_expand_parameters(self):
         s = ServiceContainer()
-        service_def = Service('ServiceContainerTestCase.TestClass1', ['%param1', 'param2'])
+        service_def = Service('ServiceContainerTestCase.TestClass1', ['%param1%', 'param2'])
         s.set_service('test', service_def)
         s.set_param('param1', 'my_param_test')
         
