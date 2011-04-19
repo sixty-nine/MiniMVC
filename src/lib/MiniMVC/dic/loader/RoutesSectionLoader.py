@@ -1,5 +1,4 @@
-import sys, os
-from .. Router import Router
+from MiniMVC import Router
 
 
 class RoutesSectionLoader(object):

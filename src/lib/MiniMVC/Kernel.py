@@ -1,10 +1,10 @@
 import os, sys
 from Router import Router
-from ServiceContainer import ServiceContainer
-from ServiceContainerLoader import ServiceContainerLoader
-from loaders.ServicesSectionLoader import ServicesSectionLoader
-from loaders.DatabaseSectionLoader import DatabaseSectionLoader
-from loaders.RoutesSectionLoader import RoutesSectionLoader
+from dic import ServiceContainer
+from dic.loader import ServiceContainerLoader
+from dic.loader import ServicesSectionLoader
+from dic.loader import DatabaseSectionLoader
+from dic.loader import RoutesSectionLoader
 from ObjectFactory import ObjectFactory
 from orm.ORM import ORM
 from logbook import Logger, NullHandler

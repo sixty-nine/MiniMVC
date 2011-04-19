@@ -1,8 +1,8 @@
 #!/usr/bin/python
 import sys, unittest
 
-sys.path.append(sys.path[0] + '/../' )
-from Container import Container
+sys.path.append(sys.path[0] + '/../../' )
+from MiniMVC.dic import Container
 
 # ----- TEST CLASSES -----
 

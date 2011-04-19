@@ -1,4 +1,4 @@
-from ObjectFactory import ObjectFactory
+from MiniMVC.ObjectFactory import ObjectFactory
 
 class Service(object):
 

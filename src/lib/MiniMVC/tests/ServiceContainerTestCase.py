@@ -1,9 +1,9 @@
 #!/usr/bin/python
 import sys, unittest
 
-sys.path.append(sys.path[0] + '/../' )
-from ServiceContainer import ServiceContainer
-from Service import Service
+sys.path.append(sys.path[0] + '/../../' )
+from MiniMVC.dic import ServiceContainer
+from MiniMVC.dic import Service
 
 class TestClass1:
     def __init__(self, param1, param2):

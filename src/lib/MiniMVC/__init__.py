@@ -1,4 +1,4 @@
-from Container import Container 
+from dic import Container 
 from Router import Router
 from Controller import Controller
 from Kernel import Kernel

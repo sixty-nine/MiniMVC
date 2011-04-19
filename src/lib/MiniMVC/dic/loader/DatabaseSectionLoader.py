@@ -1,5 +1,4 @@
-import sys, os
-from .. orm.ORM import ORM
+from MiniMVC.orm.ORM import ORM
 
 class DatabaseSectionLoader(object):
 

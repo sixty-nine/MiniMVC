@@ -1,4 +1,3 @@
-import sys, os
 from .. Service import Service
 
 class ServicesSectionLoader(object):

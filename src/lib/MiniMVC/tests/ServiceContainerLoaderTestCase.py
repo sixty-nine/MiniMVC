@@ -3,10 +3,10 @@ import sys, unittest
 import logbook 
 
 sys.path.append(sys.path[0] + '/../../' )
-from MiniMVC.ServiceContainer import ServiceContainer
-from MiniMVC.ServiceContainerLoader import ServiceContainerLoader
-from MiniMVC.loaders.DatabaseSectionLoader import DatabaseSectionLoader
-from MiniMVC.loaders.ServicesSectionLoader import ServicesSectionLoader
+from MiniMVC.dic import ServiceContainer
+from MiniMVC.dic.loader import ServiceContainerLoader
+from MiniMVC.dic.loader import DatabaseSectionLoader
+from MiniMVC.dic.loader import ServicesSectionLoader
 
 class TestClass1:
     def __init__(self):

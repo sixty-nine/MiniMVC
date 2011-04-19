@@ -1,9 +1,9 @@
 #!/usr/bin/python
 import sys, unittest
 
-sys.path.append(sys.path[0] + '/../' )
-from ObjectFactory import ObjectFactory
-from Container import Container
+sys.path.append(sys.path[0] + '/../../' )
+from MiniMVC.ObjectFactory import ObjectFactory
+from MiniMVC.dic import Container
 
 class ObjectFactoryTestCase(unittest.TestCase):
 
@@ -15,8 +15,7 @@ class ObjectFactoryTestCase(unittest.TestCase):
 
     def test_import_module(self):
         
-        m = ObjectFactory.import_module('Container')
-        self.assertEquals('Container', m.__name__)
+        m = ObjectFactory.import_module('MiniMVC.dic')
     
 if __name__ == '__main__':
     unittest.main()

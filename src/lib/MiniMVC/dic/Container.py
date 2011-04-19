@@ -1,6 +1,3 @@
-import sys, os
-from ObjectFactory import ObjectFactory
-
 class Container(object):
 
     def __init__(self):
