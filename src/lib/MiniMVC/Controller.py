@@ -1,8 +1,6 @@
-class Controller(object):
+import dic
+
+class Controller(dic.ContainerAware):
 
     def __init__(self, container):
-        self.__container = container
-
-    @property
-    def container(self):
-        return self.__container
+        ContainerAware.__init__(container)
