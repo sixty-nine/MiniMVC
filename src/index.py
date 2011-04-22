@@ -1,3 +1,12 @@
+#
+# This file is part of the MiniMVC package
+#
+# (c) dreamcraft.ch
+#
+# This source file is subject to the MIT license that is bundled
+# with this source code in the file LICENSE.
+#
+
 from __future__ import with_statement
 import sys, os, time
 from mod_python import apache
